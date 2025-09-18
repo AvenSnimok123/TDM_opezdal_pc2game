@@ -33,20 +33,56 @@ const CATEGORY_SCORES = {
 
 // маппинг ID оружия -> категория
 const WEAPON_CATEGORY = {
+	// Pistols
 	1: 'pistol',     // Beretta
-	2: 'rifle',      // AK-47
 	3: 'pistol',     // Desert Eagle
-	4: 'lmg',        // M249 SAW
-	6: 'melee',      // Лопата
-	7: 'shotgun',    // Remington 870
+	17: 'pistol',    // Tec-9
+	27: 'pistol',    // Colt Python
+
+	// SMG / Small arms
 	9: 'smg',        // MP5
-	10: 'grenade',   // Граната
-	11: 'melee',     // M9 Bayonet
-	12: 'melee',     // Knife
-	13: 'sniper',    // M24
+	15: 'smg',       // MP5mod
+	16: 'smg',       // Mac10
+	36: 'smg',       // Mac11
+	31: 'smg',       // P90
+	29: 'smg',       // KRISS Vector
+
+	// Rifles
+	2: 'rifle',      // AK-47
 	14: 'rifle',     // M4A1
+	21: 'rifle',     // M4A1 Mod
+	22: 'rifle',     // SCAR
+
+	// LMG
+	4: 'lmg',        // M249 SAW
+	32: 'lmg',       // RPK-74
+
+	// Shotguns
+	7: 'shotgun',    // Shotgun (Rem870)
+	30: 'shotgun',   // Mossberg
+	33: 'shotgun',   // Saiga12
+
+	// Snipers
+	13: 'sniper',    // M24
 	18: 'sniper',    // AWP
-	20: 'sniper',    // AWP (дубликат)
+	28: 'sniper',    // DSR-1
+	34: 'sniper',    // SVD
+	35: 'sniper',    // VSS
+
+	// Melee
+	6: 'melee',      // Military Shovel
+	11: 'melee',     // Fire Axe
+	12: 'melee',     // M9 Bayonet
+	19: 'melee',     // Karambit
+	20: 'melee',     // KitchenKnife
+	24: 'melee',     // Katana
+	38: 'melee',     // ZombieKitchenKnife
+
+	// Explosives / Others
+	10: 'grenade',   // Hand Grenade
+	25: 'grenade',   // RPG-7
+	26: 'grenade',   // 40mm GL
+	37: 'grenade',   // Zombie Spit
 };
 
 function getWeaponCategory(weaponId) {
