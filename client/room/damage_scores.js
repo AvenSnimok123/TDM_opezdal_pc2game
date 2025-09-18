@@ -1,4 +1,4 @@
-// библиотека расчёта очков ассистов для TDM
+// библиотека расчёта очков за урон/убийства/ассисты для TDM
 
 import { GameMode } from 'pixel_combats/room';
 
@@ -15,8 +15,7 @@ function getMapModifier() {
 	return MAP_MODIFIERS[length] || 1.0;
 }
 
-// базовая команда очков за килл (для командного счётчика в режиме)
-const KILL_SCORES = 5;
+const KILL_SCORES = 5; // командные очки за килл
 
 // базовые очки (для средних карт)
 const CATEGORY_SCORES = {
@@ -52,20 +51,17 @@ function getWeaponCategory(weaponId) {
 	return WEAPON_CATEGORY[weaponId] || 'rifle';
 }
 
-// очки убийства по оружию/хедшоту × модификатор карты
 function calcKillScore(weaponId, isHeadshot) {
 	const category = getWeaponCategory(weaponId);
 	const base = (isHeadshot ? CATEGORY_SCORES[category].head : CATEGORY_SCORES[category].body);
 	return Math.round(base * getMapModifier());
 }
 
-// удобный вариант: расчёт очков убийства из IHitData
 function calcKillScoreFromHit(hit) {
 	if (!hit) return 0;
 	return calcKillScore(hit.WeaponID, hit.IsHeadShot === true);
 }
 
-// базовая формула ассиста: 60 × модификатор карты
 function calcAssistScore(assistItem) {
 	// assistItem содержит поля: Attacker, Damage, Hits, IsKiller (false)
 	// при необходимости здесь можно учесть Damage/Hits
@@ -73,15 +69,16 @@ function calcAssistScore(assistItem) {
 }
 
 // применяет начисления очков по отчёту убийства (убийца + ассисты)
-export function applyKillReportScores(victim, killer, report, scoresPropName) {
+export function applyKillReportScores(victim, killer, report, teamScoresProp) {
 	if (!report) return;
 	// убийца
 	if (killer && victim && killer.Team != null && victim.Team != null && killer.Team != victim.Team) {
 		++killer.Properties.Kills.Value;
-		if (killer.Team != null)
-			killer.Team.Properties.Get(scoresPropName).Value += KILL_SCORES;
+		if (teamScoresProp)
+			teamScoresProp.Value += KILL_SCORES;
 		killer.Properties.Scores.Value += calcKillScoreFromHit(report.KillHit);
 	}
+
 	// ассисты
 	const items = report.Items || [];
 	for (const it of items) {

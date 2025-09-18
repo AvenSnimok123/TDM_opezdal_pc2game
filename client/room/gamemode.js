@@ -2,7 +2,7 @@ import { DisplayValueHeader } from 'pixel_combats/basic';
 import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
 import * as teams from './default_teams.js';
 import * as default_timer from './default_timer.js';
-import * as assist from './assist.js';
+import * as damageScores from './damage_scores.js';
 import * as mapScores from './map_scores.js';
 
 // настройки
@@ -14,7 +14,7 @@ const MockModeTime = 10;
 const EndOfMatchTime = 8;
 const VoteTime = 10;
 
-// очки за килл для командного счётчика — см. assist.KILL_SCORES
+// очки
 const WINNER_SCORES = 10;
 const TIMER_SCORES = 5;
 const SCORES_TIMER_INTERVAL = 30;
@@ -116,7 +116,7 @@ Damage.OnDeath.Add(function (player) {
 // детальный отчёт по убийству: начисляем очки за убийство и ассисты по ТЗ
 Damage.OnKillReport.Add(function (victim, killer, report) {
     if (stateProp.Value == MockModeStateValue) return;
-    assist.applyKillReportScores(victim, killer, report, SCORES_PROP_NAME);
+    damageScores.applyKillReportScores(victim, killer, report, SCORES_PROP_NAME);
 });
 
 // начисление очков за редактирование карты
