@@ -1,12 +1,14 @@
 // библиотека расчёта очков за изменения карты
 import { BreackGraph } from 'pixel_combats/room';
 
-const SCORES_PROP_NAME = "Scores";
-
-const ENEMY_BLOCK_SCORE = 25;
+// константы
+const SCORES_PROP_NAME = "Scores";          // имя свойства очков у игрока/команды
+const ENEMY_BLOCK_SCORE = 25;                // очки за разрушение 1 вражеского блока
+const MAP_BLOCK_SCORE = 2;                   // очки за разрушение 1 блока карты
+const PLACE_BLOCK_SCORE = 5;                 // очки за постановку блока/линии
 // корневые ID блоков команд
-const RED_TEAM_ROOT_BLOCK_ID = 33;
-const BLUE_TEAM_ROOT_BLOCK_ID = 28;
+const RED_TEAM_ROOT_BLOCK_ID = 33;           // корневой блок красной команды
+const BLUE_TEAM_ROOT_BLOCK_ID = 28;          // корневой блок синей команды
 
 // получить союзный/вражеский корневой блок для игрока
 function getAllyEnemyRootIds(player, blueTeam, redTeam) {
@@ -25,8 +27,8 @@ function getAllyEnemyRootIds(player, blueTeam, redTeam) {
 function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
     if (!details || !details.MapChange) return 0;
     const mapChange = details.MapChange;
-    // постановка блока (одиночный или линия) — +5 очков за событие
-    if (mapChange.BlockId > 0) return 5;
+    // постановка блока (одиночный или линия)
+    if (mapChange.BlockId > 0) return PLACE_BLOCK_SCORE;
 
     // поломка блока определяем как изменение блока на 0 (стирание)
     const isDeletion = mapChange.BlockId === 0;
@@ -35,26 +37,26 @@ function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
 	// удаление: анализируем, что было до изменения (старые блоки в области)
 	const oldList = details.OldMapData || [];
 	let total = 0;
-	let mapBlocksAwarded = 0; // лимит на очки за блоки карты (1–2 за событие)
 	for (let i = 0; i < oldList.length; ++i) {
 		const old = oldList[i];
 		if (!old) continue;
 		if (!old.BlockId || old.BlockId === 0) continue; // пропускаем пустоту
 		const root = BreackGraph.BlockRoot(old.BlockId);
+		const range = old.Range;
+		// количество реально удалённых блоков в данной области (свойство всегда присутствует)
+		let blocksCount = range.BlocksCount;
+		if (blocksCount < 1) blocksCount = 1;
 		if (root === enemyRootBlockId) {
 			// разрушение блока врага
-			total += ENEMY_BLOCK_SCORE;
+			total += ENEMY_BLOCK_SCORE * blocksCount;
 		}
 		else if (root === allyRootBlockId) {
 			// разрушение своего/союзного блока — без очков
 			// total += 0;
 		}
 		else {
-			// блок карты — символические очки, максимум 2 за событие
-			if (mapBlocksAwarded < 2) {
-				total += 1;
-				++mapBlocksAwarded;
-			}
+			// блок карты — фиксированное количество за каждый удалённый блок
+			total += MAP_BLOCK_SCORE * blocksCount;
 		}
 	}
 	return total;
