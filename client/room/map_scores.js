@@ -17,11 +17,11 @@ function getAllyEnemyRootIds(player, blueTeam, redTeam) {
 	return { allyRootId: 0, enemyRootId: 0 };
 }
 
-// расчёт очков за редактирование карты согласно ТЗ
+// расчёт очков за редактирование карты
 // details: IMapChangeDetails
 // breackGraph: IBreackGraphService
 // allyRootBlockId / enemyRootBlockId: корневые ID блоков команд относительно игрока
-function calcMapEditScore(details, breackGraph, allyRootBlockId, enemyRootBlockId) {
+function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
     if (!details || !details.MapChange) return 0;
     const mapChange = details.MapChange;
     // постановка блока (одиночный или линия) — +5 очков за событие
@@ -40,7 +40,7 @@ function calcMapEditScore(details, breackGraph, allyRootBlockId, enemyRootBlockI
         const old = oldList[i];
         if (!old) continue;
         if (!old.BlockId || old.BlockId === 0) continue; // пропускаем пустоту
-        const root = breackGraph.BlockRoot(old.BlockId);
+        const root = BreackGraph.BlockRoot(old.BlockId);
         if (root === enemyRootBlockId) {
             destroyedEnemy = true;
         }
@@ -61,7 +61,7 @@ export function applyMapEditScores(player, details, blueTeam, redTeam) {
 	if (!player) return;
 	if (!details || !details.MapChange) return;
 	const roots = getAllyEnemyRootIds(player, blueTeam, redTeam);
-	const add = calcMapEditScore(details, BreackGraph, roots.allyRootId, roots.enemyRootId);
+    const add = calcMapEditScore(details, roots.allyRootId, roots.enemyRootId);
 	player.Properties.Scores.Value += add;
 }
 
