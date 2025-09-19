@@ -16,7 +16,7 @@ const VoteTime = 10;
 
 // очки
 const WINNER_SCORES = 10;
-const TIMER_SCORES = 5;
+const TIMER_SCORES = 10;
 const SCORES_TIMER_INTERVAL = 30;
 
 // имена используемых объектов
