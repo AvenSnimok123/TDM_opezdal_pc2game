@@ -5,6 +5,7 @@ import { BreackGraph, ScoreInfo } from 'pixel_combats/room';
 const SCORES_PROP_NAME = "Scores";           // имя свойства очков у игрока/команды
 const ENEMY_BLOCK_SCORE = 25;                // очки за разрушение 1 вражеского блока
 const MAP_BLOCK_SCORE = 2;                   // очки за разрушение 1 блока карты
+const NEUTRAL_BLOCK_SCORE_PER_EVENT_CAP = 8; // максимум очков за нейтральные блоки за событие/кадр
 const PLACE_BLOCK_SCORE = 5;                 // очки за постановку блока/линии
 // корневые ID блоков команд
 const RED_TEAM_ROOT_BLOCK_ID = 33;           // корневой блок красной команды
@@ -53,7 +54,8 @@ function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
     if (!isDeletion) return 0;
 
     // удаление: анализируем, что было до изменения (старые блоки в области)
-	let total = 0;
+    let total = 0;
+    let neutralBlocksBroken = 0; // сколько нейтральных блоков сломано в этом событии
     for (let i = 0; i < oldList.length; ++i) {
 		const old = oldList[i];
 		if (!old) continue;
@@ -80,18 +82,21 @@ function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
             // total += 0;
 		}
         else {
-			// блок карты — фиксированное количество за каждый удалённый блок
-			let scoresToadd = MAP_BLOCK_SCORE * blocksCount;
-            total += scoresToadd;
-			// выводим уведомление
-			ScoreInfo.Show(details.Player, {
-				Type: 4, // NeutralBlockDestroy (map block)
-				WeaponId: 0,
-				Scores: scoresToadd,
-				IsHeadshot: false
-			});
-		}
+            // блок карты — копим количество, начислим очки вне цикла (с лимитом 8 очков)
+            neutralBlocksBroken += blocksCount;
+        }
 	}
+    // единоразовое начисление за нейтральные блоки: максимум 8 очков за событие/кадр
+    if (neutralBlocksBroken > 0) {
+        const scoresToadd = Math.min(neutralBlocksBroken * MAP_BLOCK_SCORE, NEUTRAL_BLOCK_SCORE_PER_EVENT_CAP);
+        total += scoresToadd;
+        ScoreInfo.Show(details.Player, {
+            Type: 4, // NeutralBlockDestroy (map block)
+            WeaponId: 0,
+            Scores: scoresToadd,
+            IsHeadshot: false
+        });
+    }
 	return total;
 }
 
