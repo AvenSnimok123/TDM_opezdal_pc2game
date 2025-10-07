@@ -1,10 +1,12 @@
 import { DisplayValueHeader } from 'pixel_combats/basic';
-import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
+import { room,Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
 import * as teams from './default_teams.js';
 import * as default_timer from './default_timer.js';
 import * as damageScores from './damage_scores.js';
 import * as mapScores from './map_scores.js';
 import { addTeamScores } from './team_scores.js';
+
+room.room.PopupsEnable = true;
 
 // настройки
 const WaitingPlayersTime = 10;
