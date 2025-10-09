@@ -9,32 +9,32 @@
   "MapLists": [
     {
       "MapListId": 324,
-      "Name": "All Maps"
+      "Name": "maplist.allmaps"
     },
     {
       "MapListId": 24854,
-      "Name": "S",
+      "Name": "maplist.s",
       "Parameters": {
         "GameLength": "Length_S"
       }
     },
     {
       "MapListId": 24855,
-      "Name": "M",
+      "Name": "maplist.m ",
       "Parameters": {
         "GameLength": "Length_M"
       }
     },
     {
       "MapListId": 24856,
-      "Name": "L",
+      "Name": "maplist.l",
       "Parameters": {
         "GameLength": "Length_L"
       }
     },
     {
       "MapListId": 24857,
-      "Name": "XL",
+      "Name": "maplist.xl",
       "Parameters": {
         "GameLength": "Length_XL"
       }
@@ -54,28 +54,28 @@
     "Bool": [
       {
         "Name": "MapRotation",
-        "DisplayName": "GmParams/MapRotation",
+        "DisplayName": "params.MapRotation",
         "Default": true,
         "Order": 1
       },
       {
         "Name": "OnlyKnives",
-        "DisplayName": "GmParams/OnlyKnives",
+        "DisplayName": "params.OnlyKnives",
         "Order": 2
       },
       {
         "Name": "OnlyPlayerBlocksDmg",
-        "DisplayName": "GmParams/OnlyPlayerBlocksDmg",
+        "DisplayName": "params.OnlyPlayerBlocksDmg",
         "Order": 3
       },
       {
         "Name": "LoosenBlocks",
-        "DisplayName": "GmParams/LoosenBlocks",
+        "DisplayName": "params.LoosenBlocks",
         "Order": 4
       },
       {
         "Name": "FriendlyFire",
-        "DisplayName": "GmParams/FriendlyFire",
+        "DisplayName": "params.FriendlyFire",
         "Order": 5
       }
     ]

@@ -2,15 +2,16 @@
   "mode.name": "Combate por equipos",
   "mode.description": "Dos equipos luchan para alcanzar el límite de bajas.",
 
-  "Length_S": "Corto",
-  "Length_M": "Medio",
-  "Length_L": "Largo",
-  "Length_XL": "Muy largo",
+  "maplist.allmaps": "Todos los mapas",
+  "maplist.s": "Corto",
+  "maplist.m": "Medio",
+  "maplist.l": "Largo",
+  "maplist.xl": "Muy largo",
 
-  "GmParams/MapRotation": "Rotación de mapas",
-  "GmParams/OnlyKnives": "Solo cuchillos",
-  "GmParams/OnlyPlayerBlocksDmg": "Daño solo a bloques de jugadores",
-  "GmParams/LoosenBlocks": "Debilitar bloques",
-  "GmParams/FriendlyFire": "Fuego amigo"
+  "params.MapRotation": "Rotación de mapas",
+  "params.OnlyKnives": "Solo cuchillos",
+  "params.OnlyPlayerBlocksDmg": "Daño solo a bloques de jugadores",
+  "params.LoosenBlocks": "Debilitar bloques",
+  "params.FriendlyFire": "Fuego amigo"
 }
 
