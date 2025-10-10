@@ -3,10 +3,6 @@
   "mode.description": "Dos equipos luchan para alcanzar el límite de bajas.",
 
   "maplist.allmaps": "Todos los mapas",
-  "maplist.s": "Corto",
-  "maplist.m": "Medio",
-  "maplist.l": "Largo",
-  "maplist.xl": "Muy largo",
 
   "params.MapRotation": "Rotación de mapas",
   "params.OnlyKnives": "Solo cuchillos",

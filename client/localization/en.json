@@ -3,10 +3,6 @@
   "mode.description": "Two teams fight to reach the frag limit.",
 
   "maplist.allmaps": "All Maps",
-  "maplist.s": "Short",
-  "maplist.m": "Medium",
-  "maplist.l": "Long",
-  "maplist.xl": "Very Long",
 
   "params.MapRotation": "Map rotation",
   "params.OnlyKnives": "Only knives",

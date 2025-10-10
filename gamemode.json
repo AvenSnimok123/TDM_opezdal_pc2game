@@ -13,28 +13,28 @@
     },
     {
       "MapListId": 24854,
-      "Name": "maplist.s",
+      "Name": "S",
       "Parameters": {
         "GameLength": "Length_S"
       }
     },
     {
       "MapListId": 24855,
-      "Name": "maplist.m ",
+      "Name": "M",
       "Parameters": {
         "GameLength": "Length_M"
       }
     },
     {
       "MapListId": 24856,
-      "Name": "maplist.l",
+      "Name": "L",
       "Parameters": {
         "GameLength": "Length_L"
       }
     },
     {
       "MapListId": 24857,
-      "Name": "maplist.xl",
+      "Name": "XL",
       "Parameters": {
         "GameLength": "Length_XL"
       }

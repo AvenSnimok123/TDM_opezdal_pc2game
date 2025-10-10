@@ -3,10 +3,6 @@
   "mode.description": "Две команды сражаются, чтобы набрать лимит фрагов.",
 
   "maplist.allmaps": "Все карты",
-  "maplist.s": "Короткий",
-  "maplist.m": "Средний",
-  "maplist.l": "Длинный",
-  "maplist.xl": "Очень длинный",
 
   "params.MapRotation": "Ротация карт",
   "params.OnlyKnives": "Только ножи",
