@@ -19,10 +19,10 @@ const VoteTime = 10;
 
 // время основной битвы по размерам карт (согласно ТЗ)
 const GAME_MODE_TIMES = {
-	'Length_S': 210,  // 3:30
-	'Length_M': 270,  // 4:30
-	'Length_L': 330,  // 5:30
-	'Length_XL': 390  // 6:30
+	'S': 210,  // 3:30
+	'M': 270,  // 4:30
+	'L': 330,  // 5:30
+	'XL': 390  // 6:30
 };
 
 // очки
@@ -231,7 +231,7 @@ function SetGameMode() {
 
 	// получаем время основной битвы по размеру карты
 	const gameLength = GameMode.Parameters.GetString('GameLength');
-	const gameTime = GAME_MODE_TIMES[gameLength] || GAME_MODE_TIMES['Length_M'];
+	const gameTime = GAME_MODE_TIMES[gameLength] || GAME_MODE_TIMES['M'];
 	
 	mainTimer.Restart(gameTime);
 	Spawns.GetContext().Despawn();
