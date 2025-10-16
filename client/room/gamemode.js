@@ -1,5 +1,5 @@
 import { DisplayValueHeader } from 'pixel_combats/basic';
-import { room,Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
+import { room, Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
 import * as teams from './default_teams.js';
 import * as default_timer from './default_timer.js';
 import * as damageScores from './damage_scores.js';
@@ -130,7 +130,7 @@ Damage.OnDeath.Add(function (player) {
 Damage.OnKillReport.Add(function (victim, killer, report) {
 	if (stateProp.Value == MockModeStateValue) return;
 	damageScores.applyKillReportScores(victim, killer, report);
-	
+
 	// если это TieBreaker (ничья в овертайме), завершаем игру
 	if (stateProp.Value === TieBreakerStateValue) {
 		SetEndOfMatch_EndMode();
@@ -232,7 +232,7 @@ function SetGameMode() {
 	// получаем время основной битвы по размеру карты
 	const gameLength = GameMode.Parameters.GetString('GameLength');
 	const gameTime = GAME_MODE_TIMES[gameLength] || GAME_MODE_TIMES['M'];
-	
+
 	mainTimer.Restart(gameTime);
 	Spawns.GetContext().Despawn();
 	SpawnTeams();
@@ -243,12 +243,12 @@ function CheckForOvertime() {
 	const leaderboard = LeaderBoard.GetTeams();
 	const team1Score = leaderboard[0].Weight;
 	const team2Score = leaderboard[1].Weight;
-	
+
 	// проверяем условие овертайма: разница команд ≤ 10%
 	const maxScore = Math.max(team1Score, team2Score);
 	const minScore = Math.min(team1Score, team2Score);
 	const difference = maxScore > 0 ? (maxScore - minScore) / maxScore : 0;
-	
+
 	if (difference <= 0.1) {
 		// запускаем овертайм
 		SetOvertime();
@@ -262,13 +262,13 @@ function CheckForOvertime() {
 function SetOvertime() {
 	stateProp.Value = OvertimeStateValue;
 	Ui.GetContext().Hint.Value = "Hint/Overtime";
-	
+
 	// включаем бесконечные патроны для всех
 	var inventory = Inventory.GetContext();
 	inventory.MainInfinity.Value = true;
 	inventory.SecondaryInfinity.Value = true;
 	inventory.ExplosiveInfinity.Value = true;
-	
+
 	// запускаем овертайм на 30 секунд
 	mainTimer.Restart(OvertimeTime);
 }
@@ -350,10 +350,16 @@ function OnVoteResult(v) {
 NewGameVote.OnResult.Add(OnVoteResult);
 
 function start_vote() {
-	NewGameVote.Start({
-		Variants: [{ MapId: 0 }],
-		Timer: VoteTime
-	}, MapRotation ? 3 : 0);
+	// формируем варианты для голосования
+	var variants = [
+		new NewGameVote.SameVariant(),	// базовый вариант (тоже самое, что было)
+		new NewGameVote.OnlyUniqueVariants(true, false)]; // уникальность по картам, но не по спискам карт
+	
+		// если ротация карт включена, то добавляем 3 карты из всех официальных списков
+	if (MapRotation) variants.push(new NewGameVote.FromOfficialMapLists(3));
+
+	// запускаем голосование по запросам
+	NewGameVote.Start(variants, VoteTime);
 }
 
 function SpawnTeams() {
