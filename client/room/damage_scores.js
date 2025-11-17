@@ -17,17 +17,17 @@ function getMapModifier() {
 	return MAP_LENGTH_MODIFIERS[length] || 1.0;
 }
 
-const ASSIST_BASE_SCORE = 60; // базовые очки за ассист (до модификатора карты)
+const ASSIST_BASE_SCORE = 80; // базовые очки за ассист (до модификатора карты)
 
 // базовые очки (для средних карт)
 const CATEGORY_SCORES = {
-	melee: { head: 192, body: 120 },
-	pistol: { head: 120, body: 96 },
-	grenade: { head: 168, body: 108 },
-	smg: { head: 132, body: 84 },
+	melee: { head: 200, body: 160 },
+	pistol: { head: 150, body: 90 },
+	grenade: { head: 175, body: 111 },
+	smg: { head: 156, body: 73 },
 	shotgun: { head: 144, body: 90 },
 	rifle: { head: 150, body: 96 },
-	sniper: { head: 240, body: 144 },
+	sniper: { head: 240, body: 138 },
 	lmg: { head: 150, body: 96 },
 };
 
