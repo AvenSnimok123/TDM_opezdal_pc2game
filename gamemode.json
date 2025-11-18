@@ -61,8 +61,8 @@
         "Order": 1
       },
       {
-        "Name": "OnlyKnives",
-        "DisplayName": "params.OnlyKnives",
+        "Name": "DeleteAllWeapon",
+        "DisplayName": "params.DeleteAllWeapon",
         "Order": 2
       },
       {
@@ -81,9 +81,29 @@
         "Order": 5
       },
       {
-        "Name": "DeleteWeapon",
-        "DisplayName": "params.DeleteWeapon",
+        "Name": "MainWeapon",
+        "DisplayName": "params.MainWeapon",
         "Order": 6
+      },
+      {
+        "Name": "SecondWeapon",
+        "DisplayName": "params.SecondWeapon",
+        "Order": 7
+      }
+      {
+        "Name": "KnifeWeapon",
+        "DisplayName": "params.KnifeWeapon",
+        "Order": 8
+      },
+      {
+        "Name": "BombWeapon",
+        "DisplayName": "params.BombWeapon",
+        "Order": 9
+      },
+      {
+        "Name": "Blocks",
+        "DisplayName": "params.Blocks",
+        "Order": 10
       }
     ]
   }
